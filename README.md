@@ -167,3 +167,89 @@ These are some of the basic SQL commands and concepts. SQL is a powerful languag
 10. **Advanced SQL Security**: Implement security measures like user roles and permissions to control who can access and modify data in the database.
 
 These intermediate SQL concepts expand your knowledge and skills in working with relational databases. They are essential for efficiently managing complex data operations and ensuring data integrity.
+
+## Advanced SQL Concepts for Data Analysis:
+
+1. **Window Functions**: Window functions allow you to perform calculations across a set of rows related to the current row. They are useful for tasks like calculating running totals or ranking data.
+
+   Example:
+   ```sql
+   SELECT employee_name, salary, 
+          SUM(salary) OVER (ORDER BY salary DESC) AS running_total
+   FROM employees;
+   ```
+
+2. **Common Table Expressions (CTEs)**: CTEs are temporary result sets that can be referenced within a SELECT, INSERT, UPDATE, or DELETE statement. They make complex queries more readable and maintainable.
+
+   Example:
+   ```sql
+   WITH cte AS (
+      SELECT column1, column2 FROM tablename WHERE condition
+   )
+   SELECT * FROM cte;
+   ```
+
+3. **Advanced Aggregation**: Beyond basic aggregation functions, you can use GROUPING SETS, ROLLUP, and CUBE to generate multiple levels of subtotals in result sets.
+
+   Example:
+   ```sql
+   SELECT department, city, SUM(sales)
+   FROM sales_data
+   GROUP BY GROUPING SETS ((department), (city), ());
+   ```
+
+4. **Pivoting Data**: You can use the PIVOT operator to transform rows into columns and vice versa, making it easier to analyze data in a different format.
+
+   Example:
+   ```sql
+   SELECT *
+   FROM (
+      SELECT product, quantity FROM sales
+   ) AS source
+   PIVOT (
+      SUM(quantity) FOR product IN ('A', 'B', 'C')
+   ) AS pivot_table;
+   ```
+
+5. **Recursive Queries**: Recursive Common Table Expressions (RCTEs) allow you to work with hierarchical or recursive data structures, such as organizational charts or bill-of-materials data.
+
+   Example:
+   ```sql
+   WITH RECURSIVE org_chart AS (
+      SELECT employee_id, manager_id FROM employees WHERE manager_id IS NULL
+      UNION ALL
+      SELECT e.employee_id, e.manager_id FROM employees e
+      JOIN org_chart o ON e.manager_id = o.employee_id
+   )
+   SELECT * FROM org_chart;
+   ```
+
+6. **Advanced Filtering**: Utilize advanced filtering techniques like regular expressions (REGEXP), full-text search (MATCH AGAINST), and geospatial functions for specialized data analysis.
+
+   Example (Regular Expression):
+   ```sql
+   SELECT product_name FROM products WHERE REGEXP 'pattern';
+   ```
+
+7. **Temporal Data**: Handle temporal data effectively using features like temporal tables (system-versioned tables) and temporal queries to track changes over time.
+
+   Example (Temporal Query):
+   ```sql
+   SELECT * FROM tablename
+   FOR SYSTEM_TIME BETWEEN 'start_date' AND 'end_date';
+   ```
+
+8. **Analytics and Machine Learning Integration**: Some database systems offer integration with analytics and machine learning libraries, allowing you to perform advanced data analysis within the database environment.
+
+9. **Data Partitioning**: Partition large tables to improve query performance by dividing them into smaller, more manageable segments.
+
+   Example:
+   ```sql
+   CREATE TABLE sales_data (
+      sales_date DATE,
+      ...
+   ) PARTITION BY RANGE (sales_date);
+   ```
+
+These advanced SQL concepts and techniques are invaluable for data analysts and data scientists who need to perform complex data manipulations, aggregations, and analysis tasks on large datasets.
+
