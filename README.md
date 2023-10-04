@@ -89,8 +89,7 @@ SQL, which stands for Structured Query Language, is a domain-specific language u
 These are some of the basic SQL commands and concepts. SQL is a powerful language with many more features and capabilities for managing and querying data in relational databases.
 
 
-
-**Intermediate SQL Concepts:**
+## Intermediate SQL Concepts:
 
 1. **Subqueries**: Subqueries are nested SQL queries within another query. They can be used in the SELECT, FROM, or WHERE clauses to retrieve data or make comparisons.
 
